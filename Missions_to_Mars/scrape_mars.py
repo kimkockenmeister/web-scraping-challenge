@@ -5,8 +5,9 @@ import pandas as pd
 
 def init_browser():
 # @NOTE: Replace the path with your actual path to the chromedriver
-    executable_path={'executable_path':'/Users/kimkockenmeister/Downloads/chromedriver-3'}
-    return Browser("chrome", **executable_path, headless = False)
+    #executable_path={'executable_path':''}
+    path= r'/Users/kimkockenmeister/Downloads/chromedriver-3'
+    return Browser("chrome", executable_path=path, headless = True)
 
 def scrape():
     browser = init_browser()
@@ -52,10 +53,12 @@ def scrape():
     facts_url = "https://space-facts.com/mars/"
     browser.visit(facts_url)
     time.sleep(2)
-    mars_data = pd.read_html(facts_url)
-    mars_data = pd.DataFrame(mars_data[0])
+    mars_data = pd.read_html(facts_url)[0]
+    #mars_data = pd.DataFrame(mars_data[0])
+    mars_data.columns = ['Description', 'Mars']
+    mars_data.set_index('Description', inplace=True)
     #Use Pandas to convert the data to a HTML table string.
-    mars_facts = mars_data.to_html(header = False, index = False)
+    mars_data = mars_data.to_html(classes="table table-striped")
     mars_dict["mars facts"] = mars_data
 
     #web scrape hemisphere
@@ -82,4 +85,7 @@ def scrape():
 
     mars_dict["hemisphere_img_url"] = mars_hemisphere
 
-    return mars_dict   
+    return mars_dict  
+
+    if __name__ == "__main__":
+        print(scrape())
