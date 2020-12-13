@@ -45,7 +45,7 @@ def scrape():
     featured_image=featured_image.strip("')")
     base_url="https://www.jpl.nasa.gov"
     featured_image_url=base_url+featured_image
-    mars_dict["featured_image"] = full_img_url
+    mars_dict["featured_image"] = featured_image_url
     
     #web scrape facts
     facts_url = "https://space-facts.com/mars/"
