@@ -24,7 +24,7 @@ def scrape():
     
     mars = mongo.db.mars
     browser=scrape_mars.init_browser
-    mars_data = scrape_mars.scrape(browser)
+    mars_data = scrape_mars.scrape()
     mongo.db.collection.update({},mars_data,upsert=True)
     return redirect("/", code=302)
 

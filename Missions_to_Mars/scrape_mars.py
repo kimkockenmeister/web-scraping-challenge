@@ -49,18 +49,20 @@ def scrape():
     featured_image_url=base_url+featured_image
     mars_dict["featured_image"] = featured_image_url
     
-    #web scrape facts
+   
+     #web scrape facts
     facts_url = "https://space-facts.com/mars/"
     browser.visit(facts_url)
-    time.sleep(2)
-    mars_data = pd.read_html(facts_url)[0]
-    #mars_data = pd.DataFrame(mars_data[0])
-    mars_data.columns = ['Description', 'Mars']
-    mars_data.set_index('Description', inplace=True)
-    #Use Pandas to convert the data to a HTML table string.
-    mars_data = mars_data.to_html(classes="table table-striped")
-    mars_dict["mars facts"] = mars_data
 
+    time.sleep(1)
+    #Use Pandas to convert the data to a HTML table string.
+    tables = pd.read_html(facts_url)
+
+    facts_df = tables[0]
+    facts_df.columns = [" ", "Mars"]
+
+    mars_facts=facts_df.to_html(index=False)
+    
     #web scrape hemisphere
     hemispheres_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(hemispheres_url)
