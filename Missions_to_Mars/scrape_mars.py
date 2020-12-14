@@ -50,7 +50,7 @@ def scrape():
     mars_dict["featured_image"] = featured_image_url
     
    
-     #web scrape facts
+    #web scrape facts
     facts_url = "https://space-facts.com/mars/"
     browser.visit(facts_url)
 
@@ -62,6 +62,8 @@ def scrape():
     facts_df.columns = [" ", "Mars"]
 
     mars_facts=facts_df.to_html(index=False)
+    mars_dict["mars_facts"] = mars_facts
+
     
     #web scrape hemisphere
     hemispheres_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
@@ -87,6 +89,7 @@ def scrape():
 
     mars_dict["hemisphere_img_url"] = mars_hemisphere
 
+    print(mars_dict)
     return mars_dict  
 
     if __name__ == "__main__":
